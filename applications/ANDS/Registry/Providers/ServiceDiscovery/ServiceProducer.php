@@ -48,6 +48,31 @@ class ServiceProducer {
         $this->response = $response->xml()->asXML();
     }
 
+    function publishISOServices($service_json_file){
+        $headers = [
+            'Content-type' => 'application/json; charset=utf-8',
+            'Accept' => 'application/xml',
+        ];
+        $response = "";
+        $request = $this->http->post('/publishISOServices', $headers, $service_json_file);
+
+        try {
+            $response = $request->send();
+            $this->responseCode = $response->getStatusCode();
+        }
+        catch (ClientErrorResponseException $e) {
+            $this->errors = $e->getResponse()->json();
+            $this->responseCode = $e->getCode();
+        }
+        catch (ServerErrorResponseException $e){
+            $this->errors[] = $e->getResponse()->json();
+            $this->responseCode = $e->getCode();
+        }
+        $this->response = $response->json();
+    }
+
+
+
     public function getServicebyURL($url, $type)
     {
         $response = "";
@@ -75,8 +100,7 @@ class ServiceProducer {
         return count($registryObjects);
     }
 
-    function getRegistryObjects(){
+    function getResponse(){
         return $this->response;
     }
-    
 }

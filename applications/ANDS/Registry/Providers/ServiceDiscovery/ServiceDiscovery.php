@@ -40,6 +40,22 @@ class ServiceDiscovery {
     }
 
     /*
+     * generate payload containg the uuid of an OGC:* service and the current rifcs base 64 encoded
+     *
+     */
+
+    public static function getServicesByKeys($keys){
+        $payload = [];
+        foreach($keys as $key)
+        {
+            $service = static::getPublishableService($key);
+            if($service)
+                $payload[] = $service;
+        }
+        return $payload;
+    }
+
+    /*
      *
      * get all unique baseURLS and populate them with related collection keys and uuids
      *
@@ -172,6 +188,17 @@ class ServiceDiscovery {
         return "";
     }
 
+
+    private static function getPublishableService($key_uuid){
+
+        $matchingRecord =  Repo::getMatchingRecord($key_uuid, "PUBLISHED");
+        if(str_contains("OGC:", $matchingRecord->type ))
+        {
+            $currentRecordData = $matchingRecord->getCurrentData();
+            return array("uuid"=>$key_uuid, "rifcsB64"=>$currentRecordData);
+        }
+        return null;
+    }
 
 
     //sourced from http://php.net/manual/en/function.array-unique.php

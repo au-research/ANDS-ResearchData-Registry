@@ -8,7 +8,6 @@
 namespace ANDS\API\Task\ImportSubTask;
 
 use ANDS\Registry\Providers\ServiceDiscovery\ServiceProducer as ServiceProducer;
-use ANDS\Repository\RegistryObjectsRepository;
 
 /**
  * Class ServiceDiscovery
@@ -30,13 +29,13 @@ class CreateServiceRecords extends ImportSubTask
             return;
         }
         $service_discovery_service_url = get_config_item('SERVICES_DISCOVERY_SERVICE_URL');
-        $serviceProduce = new ServiceProducer($service_discovery_service_url);
+        $serviceProducer = new ServiceProducer($service_discovery_service_url);
 
         // Generate the services in the right format
         $this->log("Generating services from $service_json_file");
         $services_json = file_get_contents($service_json_file);
-        $serviceProduce->processServices($services_json);
-        $serviceCount = $serviceProduce->getServiceCount();
+        $serviceProducer->processServices($services_json);
+        $serviceCount = $serviceProducer->getServiceCount();
         if ($serviceCount == 0) {
             $this->log("No Services generated");
             return;
@@ -55,10 +54,9 @@ class CreateServiceRecords extends ImportSubTask
 
         $filePath = "{$directoryPath}/services.xml";
         $this->log("Writing RIFCS Services to {$filePath}");
-        file_put_contents($filePath, $serviceProduce->getRegistryObjects());
+        file_put_contents($filePath, $serviceProducer->getResponse());
         $this->parent()->loadPayload();
         $this->parent()->setTaskData('payload', $filePath);
-
 
     }
 }
