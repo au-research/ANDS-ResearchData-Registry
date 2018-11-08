@@ -51,11 +51,10 @@ class ServiceProducer {
     function publishISOServices($service_json_file){
         $headers = [
             'Content-type' => 'application/json; charset=utf-8',
-            'Accept' => 'application/xml',
+            'Accept' => 'application/json',
         ];
         $response = "";
         $request = $this->http->post('/publishISOServices', $headers, $service_json_file);
-
         try {
             $response = $request->send();
             $this->responseCode = $response->getStatusCode();

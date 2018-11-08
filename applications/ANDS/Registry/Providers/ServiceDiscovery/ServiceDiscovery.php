@@ -192,10 +192,11 @@ class ServiceDiscovery {
     private static function getPublishableService($key_uuid){
 
         $matchingRecord =  Repo::getMatchingRecord($key_uuid, "PUBLISHED");
-        if(str_contains("OGC:", $matchingRecord->type ))
+        if(str_contains($matchingRecord->type ,"OGC:"))
         {
             $currentRecordData = $matchingRecord->getCurrentData();
-            return array("uuid"=>$key_uuid, "rifcsB64"=>$currentRecordData);
+            if($currentRecordData)
+                return array("uuid"=>$key_uuid, "rifcsB64"=>base64_encode($currentRecordData->data));
         }
         return null;
     }

@@ -18,6 +18,17 @@ class ServiceDiscoveryTest extends \RegistryTestClass
         $this->assertNotEmpty($links);
     }
 
+
+        /** @test **/
+    public function test_get_payload_for_services() {
+        $service_keys = array('6ac30542-4805-f2bf-e5e4-45b73b15221d', '28399bc7-bbd8-a981-ca47-9ed61faf53a7');
+
+        $payload = ServiceDiscovery::getServicesByKeys($service_keys);
+        $this->assertEquals(2, count($payload));
+
+    }
+
+
 //    /** @test **/
 //    public function test_get_links_for_record() {
 //     $collectionkey = 'AIMS/0419a746-ddc1-44d2-86e7-e5c402473956';
