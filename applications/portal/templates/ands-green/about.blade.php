@@ -1,7 +1,7 @@
 @extends('layouts/single')
 @section('content')
     <?php
-    $banner = isset($banner) ? $banner : asset_url('images/collection_banner.jpg', 'core');
+    $banner = isset($banner) ? $banner : asset_url('images/global_collection_banner.jpg', 'core');
     ?>
     <article>
 

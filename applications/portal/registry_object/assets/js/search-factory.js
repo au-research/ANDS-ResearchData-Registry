@@ -341,7 +341,7 @@
                 if (filters['class'] == 'activity' && location.href.indexOf('search') > -1) {
                     $('#banner-image').css('background-image', "url('" + base_url + "assets/core/images/activity_banner.jpg')");
                 } else if (location.href.indexOf('search') > -1) {
-                    $('#banner-image').css('background-image', "url('" + base_url + "assets/core/images/collection_banner.jpg')");
+                    $('#banner-image').css('background-image', "url('" + base_url + "assets/core/images/global_collection_banner.jpg')");
                 }
 
                 return filters;

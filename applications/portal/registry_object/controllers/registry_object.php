@@ -190,7 +190,7 @@ class Registry_object extends MX_Controller
     private function displayRecord($ro)
     {
         //Setup the common variables
-        $banner = asset_url('images/collection_banner.jpg', 'core');
+        $banner = asset_url('images/global_collection_banner.jpg', 'core');
         $theme = ($this->input->get('theme') ? $this->input->get('theme') : '2-col-wrap');
         $logo = $this->getLogo($ro->core['group']);
         $group_slug = url_title($ro->core['group'], '-', true);

@@ -1,5 +1,5 @@
 <?php 
-	$banner = isset($banner) ? $banner : asset_url('images/collection_banner.jpg', 'core');
+	$banner = isset($banner) ? $banner : asset_url('images/global_collection_banner.jpg', 'core');
 ?>
 <div id="banner-image" class="background-media" style="background-image: url({{$banner}}); background-size: cover; background-position: 50% 60%; background-repeat: no-repeat;">
 </div>
