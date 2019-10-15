@@ -8,7 +8,7 @@
             </button>
             <div>
                 <a href="{{portal_url()}}" class="navbar-brand">
-                    <span>Research Data</span> Australia
+                    <span>Research Data</span> Global
                 </a>
             </div>
 
