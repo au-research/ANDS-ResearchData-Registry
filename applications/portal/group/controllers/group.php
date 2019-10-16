@@ -131,17 +131,17 @@ class Group extends MX_Controller {
 		header('Content-type: application/json');
 		set_exception_handler('json_exception_handler');
 
-		$upload_path = './assets/uploads/custom_group_logo/';
+		$storageSettings = \ANDS\Util\Config::get('app.storage');
+		$upload_path = $storageSettings['uploads']['path'] . 'custom_group_logo/';
+
 		if(!is_dir($upload_path)) {
 			if(!mkdir($upload_path)) throw new Exception('Upload path are not created correctly. Contact server administrator');
 		}
-
 		$config['upload_path'] = $upload_path;
 		$config['allowed_types'] = 'jpg|png|gif|jpeg';
 		$config['overwrite'] = true;
 		$config['max_size']	= '500';
         $this->load->library('upload', $config);
-
         if(!$this->upload->do_upload('file')) {
             $upload_file_exceeds_limit = "The uploaded file exceeds the maximum allowed size in your PHP configuration file.";
             $upload_invalid_filesize  = "The file you are attempting to upload is larger than the permitted size.";
