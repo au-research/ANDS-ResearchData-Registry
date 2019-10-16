@@ -66,6 +66,12 @@
         @endif
     @endif
 
+    <?php
+    if(!isset($group['facet']['types']['software'])){
+        $group['facet']['types']['software'] = 0;
+        }
+    ?>
+
     <div class="panel swatch-white">
         <div class="panel-heading">Data Profile</div>
         <div  class="panel-body">
