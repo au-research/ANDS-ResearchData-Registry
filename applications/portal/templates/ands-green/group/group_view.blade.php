@@ -1,4 +1,8 @@
 @extends('layouts/right-sidebar')
+<?php
+if(!isset($group['facet']['types']['software'])){
+    $group['facet']['types']['software'] = 0;
+}?>
 @section('header')
 <div class="row element element-short-top">
     <div class="col-md-12">
@@ -49,7 +53,7 @@
     ?>
 
     @if($group['has_custom_data'])
-        @if(isset($group['custom_data']['overview']))
+        @if(isset($group['custom_data']['overview']) AND $group['custom_data']['overview']!='')
         <div class="panel swatch-white">
             <!-- <div class="panel-heading">Overview</div> -->
             <div class="panel-body">{{$group['custom_data']['overview']}}</div>
@@ -65,14 +69,7 @@
         </div>
         @endif
     @endif
-
-    <?php
-    if(!isset($group['facet']['types']['software'])){
-        $group['facet']['types']['software'] = 0;
-        }
-    ?>
-
-    <div class="panel swatch-white">
+     <div class="panel swatch-white">
         <div class="panel-heading">Data Profile</div>
         <div  class="panel-body">
             {{$group['title']}}  has <a href="{{ base_url('search') }}#!/class=collection/group={{ rawurlencode($group['title']) }}">{{$group['counts'] - $group['facet']['types']['software']}} data records</a> in Research Data Australia,
