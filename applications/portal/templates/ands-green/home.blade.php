@@ -126,7 +126,7 @@
            <div class="row">
                <div class="col-md-12">
                    <header class="text-center element-short-top element-medium-bottom not-condensed os-animation animated fadeInUp" data-os-animation="fadeInUp" data-os-animation-delay="0s" style="-webkit-animation: 0s;">
-                       <h1 class="bigger hairline bordered bordered-normal os-animation animated fadeIn" data-os-animation="fadeIn" data-os-animation-delay="0s" style="-webkit-animation: 0s;"> Who Contributes to Research Data Australia </h1>
+                       <h1 class="bigger hairline bordered bordered-normal os-animation animated fadeIn" data-os-animation="fadeIn" data-os-animation-delay="0s" style="-webkit-animation: 0s;"> Who Contributes to Research Data Global </h1>
                        <h3><a href="{{portal_url('contributors')}}">View all</a></h3>
                    </header>
                </div>
