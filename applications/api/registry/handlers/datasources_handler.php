@@ -285,7 +285,7 @@ class DatasourcesHandler extends Handler
             'harvest_method'=>'GETHarvester',
             'allow_reverse_internal_links' => DB_TRUE,
             'allow_reverse_external_links' => DB_TRUE,
-            'manual_publish' => DB_FALSE,
+            'manual_publish' => DB_TRUE,
             'qa_flag' => DB_TRUE,
             'create_primary_relationships' => DB_FALSE,
             'assessment_notify_email_addr' => '',
