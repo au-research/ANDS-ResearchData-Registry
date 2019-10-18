@@ -11,7 +11,8 @@ class ProcessGroups extends GenericScript implements GenericScriptRunnable
 {
     public function run()
     {
-        $groups = RegistryObject::select('group')->distinct()->get()->pluck('group')->toArray();
+        Group::whereNotNull('id')->delete();
+        $groups = RegistryObject::where('status','PUBLISHED')->select('group')->distinct()->get()->pluck('group')->toArray();
         foreach ($groups as $title) {
             $exist = Group::where('title', $title)->first();
             if ($exist) {
