@@ -11,53 +11,53 @@ if (isset($environment_directives) && isset($environment_directives['portal'])) 
 $config['subjects'] = array(
 	array(
 		'display'=>'Humanities and Social Sciences',
-		'codes' => array('13','16','17','19','20','21','22'),
+		'codes' => array('Education','Studies in human society','psychology and cognitive sciences','studies in creative arts and writing','language communication and culture','history and archaeology','philosophy and religious studies'),
 		'img' => 'Humanities_3.jpg'
 	),
 	array(
 		'display' => 'Business, Economics and Law',
-		'codes' => array('14','15','18'),
+		'codes' => array('Business','Economics','Law'),
 		'img' => 'Business_3.jpg'
 	),
 	array(
 		'display' => 'Medical and Health Sciences',
 		'slug' => 'medical-and-health-sciences',
-		'codes' => array('11'),
+		'codes' => array('Medical and Health Sciences'),
 		'img' => 'Medical_1.jpg'
 	),
 	array(
 		'display' => 'Engineering, Computing and Technology',
-		'codes' => array('08','09','10'),
+		'codes' => array('Engineering','Computing','Technology'),
 		'img' => 'Engineering_1.jpg'
 	),
     array(
         'display'=>'Built Environment and Design',
-        'codes' => array('12'),
+        'codes' => array('Built Environment and Design'),
         'img' => 'BuiltEnvDesign_1.jpg'
     ),
 	array(
 		'display' => 'Biological Sciences',
-		'codes' => array('06'),
+		'codes' => array('Biological Sciences'),
 		'img' => 'Biological_1.jpg'
 	),
     array(
         'display'=>'Agricultural and Veterinary Sciences',
-        'codes' => array('07'),
+        'codes' => array('Agricultural and Veterinary Sciences'),
         'img' => 'AgriCultAndVet_1.jpg'
     ),
 	array(
 		'display' => 'Environmental Sciences',
-		'codes' => array('05'),
+		'codes' => array('Environmental Sciences'),
 		'img' => 'Environmental_1.jpg'
 	),
 	array(
 		'display' => 'Earth Sciences',
-		'codes' => array('04'),
+		'codes' => array('Earth Sciences'),
 		'img' => 'EarthSciences_2.jpg'
 	),
 	array(
 		'display'=>'Physical, Chemical and Mathematical Sciences',
-		'codes' => array('01','02','03'),
+		'codes' => array('Physical Sciences','Chemical Sciences','Mathematical Sciences'),
 		'img' => 'Physical_1.jpg'
 	)
 );

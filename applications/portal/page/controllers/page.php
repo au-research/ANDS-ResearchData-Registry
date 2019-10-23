@@ -24,7 +24,7 @@ class Page extends MX_Controller
         foreach ($highlevel as &$item) {
             $query = '';
             foreach ($item['codes'] as $code) {
-                $query .= '/anzsrc-for=' . $code;
+                $query .= '/keywords=' . $code;
             }
             $item['query'] = $query;
         }
@@ -52,7 +52,7 @@ class Page extends MX_Controller
         foreach ($highlevel as &$item) {
             $query = '';
             foreach ($item['codes'] as $code) {
-                $query .= '/anzsrc-for=' . $code;
+                $query .= '/keywords=' . $code;
             }
             $item['query'] = $query;
         }
