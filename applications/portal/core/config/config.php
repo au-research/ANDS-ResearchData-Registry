@@ -52,7 +52,7 @@ $config['subjects'] = array(
 	),
 	array(
 		'display' => 'Earth Sciences',
-		'codes' => array('Earth Sciences'),
+		'codes' => array('Earth Science'),
 		'img' => 'EarthSciences_2.jpg'
 	),
 	array(
