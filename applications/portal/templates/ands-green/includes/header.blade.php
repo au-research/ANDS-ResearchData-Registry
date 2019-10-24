@@ -1,7 +1,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{{ isset($ro->core['title']) ? $ro->core['title']: 'Research Data Australia'}}</title>
+    <title>{{ isset($ro->core['title']) ? $ro->core['title']: 'Research Data Global'}}</title>
 
     <meta name="referrer" content="always">
 
@@ -25,7 +25,7 @@
             ?>
             <meta ng-non-bindable property="og:description" content="{{ $clean_description }}"/>
         @else
-            <meta property="og:description" content="Find, access, and re-use data for research - from over one hundred Australian research organisations, government agencies, and cultural institutions."/>
+            <meta property="og:description" content="Find, access, and re-use data for research - from global research organisations, government agencies, and cultural institutions."/>
         @endif
         @if(isset($ro->core['url']) && \ANDS\Util\config::get('app.default_base_url') == 'https://researchdata.ands.org.au/')
             <meta property="og:url" content="{{$ro->core['url']}}"/>
@@ -36,13 +36,13 @@
             <meta property="og:site_name" content="{{$ro->core['site_name']}}"/>
         @endif
     @else
-        <meta property="og:title" content="Research Data Australia"/>
+        <meta property="og:title" content="Research Data Global"/>
 
         <meta property="og:image" content="{{\ANDS\Util\config::get('app.default_base_url')}}assets/core/images/ANDS_logo.JPG"/>
 
-        <meta property="og:description" content="Find, access, and re-use data for research - from over one hundred Australian research organisations, government agencies, and cultural institutions."/>
+        <meta property="og:description" content="Find, access, and re-use data for research - from global research organisations, government agencies, and cultural institutions."/>
 
-        <meta property="og:site_name" content="Research Data Australia"/>
+        <meta property="og:site_name" content="Research Data Global"/>
 
     @endif
     @include('includes/scripts')
