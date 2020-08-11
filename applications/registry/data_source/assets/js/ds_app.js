@@ -420,14 +420,19 @@ function EditCtrl($scope, $routeParams, ds_factory, $location, $http) {
 	$scope.$watch('ds.crosswalks', function(newv, oldv){
 		if($scope.ds.crosswalks){
 			$scope.provider_types = [
-				{name: 'rif',value:'rif'}
+				{name: 'RIF-CS',value:'rif'}
 			]
 			$.each($scope.ds.crosswalks, function(){
-				if(this.type=='crosswalk'){
-					$scope.provider_types.push({
-						name:this.prefix + ((this.path) ? ' - '+this.path : ''), value:this.prefix
-					});
-				}
+                if(this.type=='crosswalk'){
+                    if(this.prefix=='rif') {
+                        $scope.provider_types = [
+                            {name: 'RIF-CS', value: 'rif-cs'}
+                        ];
+                    }
+                    $scope.provider_types.push({
+                        name:this.prefix + ((this.path) ? ' - '+this.path : ''), value:this.prefix
+                    });
+                }
 			});
 		}
 	}, true);
@@ -451,6 +456,10 @@ function EditCtrl($scope, $routeParams, ds_factory, $location, $http) {
 					if(this.type=='crosswalk' && this.prefix==newv){
                         if(this.full_path) {
                             $scope.ds.xsl_file = this.full_path;
+                            $.each($scope.ds.crosswalks, function(){
+                                this.active = false;
+                            });
+                            this.active = true;
                         } else {
                             $scope.ds.xsl_file = '';
                             $.each($scope.ds.crosswalks, function(){
