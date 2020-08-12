@@ -425,13 +425,21 @@ function EditCtrl($scope, $routeParams, ds_factory, $location, $http) {
 			$.each($scope.ds.crosswalks, function(){
                 if(this.type=='crosswalk'){
                     if(this.prefix=='rif') {
-                        $scope.provider_types = [
-                            {name: 'RIF-CS', value: 'rif-cs'}
-                        ];
-                    }
-                    $scope.provider_types.push({
-                        name:this.prefix + ((this.path) ? ' - '+this.path : ''), value:this.prefix
-                    });
+						$scope.provider_types = [
+							{name: 'RIF-CS', value: 'rif-cs', selected: false}
+						];
+						$('option:selected', 'select[name="provider_types"]').removeAttr('selected');
+
+						$scope.provider_types.push({
+							name:this.prefix + ((this.path) ? ' - '+this.path : ''), value:this.prefix
+						});
+						$('select[name="provider_types"]').find('option[value=1]').attr("selected",1);
+						this.active = true;
+					}else {
+						$scope.provider_types.push({
+							name: this.prefix + ((this.path) ? ' - ' + this.path : ''), value: this.prefix
+						});
+					}
                 }
 			});
 		}

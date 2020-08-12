@@ -860,7 +860,7 @@
 									<label class="control-label" for="provider_type" ng-show="ds.harvest_method=='CSWHarvester'">Output Schema</label>
 									<label class="control-label" for="provider_type" ng-show="ds.harvest_method=='CKANHarvester' || ds.harvest_method=='GETHarvester'">Provider Type</label>
 									<div class="controls">
-										<select ng-model="ds.provider_type" ng-options="item.value as item.name for item in provider_types"></select>
+										<select name="provider_types" ng-model="ds.provider_type" ng-options="item.value as item.name for item in provider_types"></select>
 									</div>
 								</div>
 
