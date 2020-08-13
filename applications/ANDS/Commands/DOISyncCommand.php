@@ -34,7 +34,7 @@ class DOISyncCommand extends Command
             ->setDescription('Sync DOI with Datacite')
             ->setHelp("This command allows you to sync local DOI with remote Datacite server")
 
-            ->addArgument('what', InputArgument::REQUIRED, 'identify|process|checkWrongDoiInXML|processWrongDOI|checkDataCiteInfo')
+            ->addArgument('what', InputArgument::REQUIRED, 'identify|process|checkWrongDoiInXML|processWrongDOI|checkDataCiteInfo|fixDOIsFromCSV')
             ->addArgument('id', InputArgument::OPTIONAL, 'id of the record')
         ;
     }
@@ -77,8 +77,87 @@ class DOISyncCommand extends Command
             $this->processWrongDOI($input, $output);
         }
 
+        if ($command == "fixDOIsFromCSV") {
+            $this->fixDOIsFromCSV($input, $output);
+        }
+
         return;
     }
+
+
+    private function fixDOIsFromCSV(InputInterface $input, OutputInterface $output){
+        $id = $input->getArgument('id');
+        $output->writeln("Client $id input");
+
+        $clientModel = new Client;
+        $clientModel->setConnection('dois');
+
+        $client = $clientModel->find($id);
+        if (!$client) {
+            $output->writeln("<error>Error client $id not found</error>");
+            die();
+        }
+
+        $output->writeln("Client $client->repository_symbol found");
+        $data = [];
+        $csv_file = fopen("/opt/apps/registry/current/applications/apps/mydois/assets/PDSC_dois_to_disable.csv", "r");
+        $data = fgetcsv($csv_file, 1000, ",");
+        $dbconf = Config::get('database.dois');
+
+        $clientRepository = new ClientRepository(
+            $dbconf['hostname'],
+            $dbconf['database'],
+            $dbconf['username'],
+            $dbconf['password'],
+            $dbconf['port']
+        );
+
+        $doiRepository = new DoiRepository(
+            $dbconf['hostname'],
+            $dbconf['database'],
+            $dbconf['username'],
+            $dbconf['password'],
+            $dbconf['port']
+        );
+
+
+        $dataciteClient = $this->getDataciteClient($client);
+        $dataciteClient->setDataciteUrl("https://mds.datacite.org/");
+        $doiService = new DOIServiceProvider($clientRepository, $doiRepository, $dataciteClient);
+
+        $doiService->setAuthenticatedClient($client);
+        while (($data = fgetcsv($csv_file, 1000, ",")) !== FALSE)
+        {
+            $databaseDOI = $doiRepository->getById($data[4]);
+
+            if (!$databaseDOI) {
+                $output->writeln("<error>$data[4] does not exist</error>");
+                continue;
+            }
+            $xml = $databaseDOI->datacite_xml;
+            $newURl = "https://www.paradisec.org.au/PDSCDOIFail.html";
+            $newxml = str_replace('</publicationYear>','</publicationYear><alternateIdentifiers><alternateIdentifier alternateIdentifierType="URL">'.$data[5].'</alternateIdentifier></alternateIdentifiers>', $xml);
+
+            $output->writeln("Updating $data[4]");
+
+            $result = $doiService->update($data[4], $newURl, $newxml);
+            if ($result === true) {
+                $output->writeln("Success updating $data[4]");
+            } else {
+                $output->writeln("<error>Failed updating $data[4]</error>");
+                $output->writeln("<error>".array_first($dataciteClient->getErrors())."</error>");
+            }
+
+            $result = $doiService->deactivate($data[4]);
+            if ($result === true) {
+                $output->writeln("Success deactivating $data[4]");
+            } else {
+                $output->writeln("<error>Failed deactivating $data[4]</error>");
+                $output->writeln("<error>".array_first($dataciteClient->getErrors())."</error>");
+            }
+        }
+    }
+
 
     private function deleteDOIs(InputInterface $input, OutputInterface $output){
 
@@ -128,6 +207,7 @@ class DOISyncCommand extends Command
     {
 
         $clientModel = new Client;
+
         $clientModel->setConnection('dois');
 
         $clients = $clientModel->get();
@@ -398,7 +478,7 @@ class DOISyncCommand extends Command
     {
         $config = Config::get('datacite');
 
-        $dataciteClient = new FabricaClient($client->datacite_symbol, $config['password']);
+        $dataciteClient = new MdsClient($client->repository_symbol, $client['shared_secret'],$client['test_shared_secret']);
 
         return $dataciteClient;
     }
